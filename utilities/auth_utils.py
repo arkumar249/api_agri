@@ -18,7 +18,7 @@ def verify_password(password: str, hashed: str) -> bool:
     return pwd_context.verify(password, hashed)
 
 
-SECRET_KEY = "supersecret"
+SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 ALGORITHM = "HS256"
 REFRESH_TOKEN_EXPIRE_DAYS = 7
 
@@ -40,4 +40,5 @@ def decode_token(token: str, token_type: str = "refresh"):
         return None
     except Exception as e:
         logger.error(f"Unexpected error decoding token: {e}")
+
         return None
